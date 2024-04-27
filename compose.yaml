@@ -3,7 +3,7 @@
 
 services:
     chhoto-url:
-        image: sintan1729/chhoto-url:latest
+        image: doggielicc/chhoto-url:latest
         restart: unless-stopped
         container_name: chhoto-url
         ports:
