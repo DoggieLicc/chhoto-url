@@ -6,6 +6,7 @@ use rand::seq::SliceRandom;
 use regex::Regex;
 use rusqlite::Connection;
 use serde::Deserialize;
+use serde_json::Value;
 use std::env;
 
 use crate::database;
@@ -80,6 +81,21 @@ pub fn delete_link(shortlink: String, db: &Connection) -> bool {
     } else {
         false
     }
+}
+
+// Check if link, and request DB to edit it if exists
+pub fn edit_link(shortlink: String, json_str: String, db: &Connection) -> bool {
+    if validate_link(shortlink.as_str()) {
+        if let Ok(parsed_json) = serde_json::from_str::<Value>(&json_str) {
+            if let Some(link) = parsed_json.get("longlink") {
+                if let Some(link_str) = link.as_str() { 
+                    database::edit_link(shortlink, link_str.trim_matches('"').to_string(), db);
+                    return true;
+                }
+            }
+        } 
+    }
+    return false;
 }
 
 // Generate a random link using either adjective-name pair (default) of a slug or a-z, 0-9

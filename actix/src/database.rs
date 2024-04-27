@@ -77,6 +77,19 @@ pub fn delete_link(shortlink: String, db: &Connection) -> bool {
     }
 }
 
+// Edit an existing link
+pub fn edit_link(shortlink: String, longlink: String, db: &Connection) -> bool {
+    if let Ok(delta) = db.execute(
+		"UPDATE urls SET long_url = ?1 WHERE short_url = ?2",
+		[longlink, shortlink]
+		) {
+        delta > 0
+    } else {
+        false
+    }
+}
+
+
 // Open the DB, and create schema if missing
 pub fn open_db(path: String) -> Connection {
     let db = Connection::open(path).expect("Unable to open database!");

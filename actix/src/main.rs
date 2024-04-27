@@ -134,6 +134,26 @@ async fn delete_link(
     }
 }
 
+
+// Edut a given shortlink
+#[post("/api/edit/{shortlink}")]
+async fn edit_link(
+    shortlink: web::Path<String>,
+    req: String,
+    data: web::Data<AppState>,
+    session: Session,
+) -> HttpResponse {
+    if auth::validate(session) {
+        if utils::edit_link(shortlink.to_string(), req, &data.db) {
+            HttpResponse::Ok().body(format!("Edited {shortlink}"))
+        } else {
+            HttpResponse::NotFound().body("Not found!")
+        }
+    } else {
+        HttpResponse::Unauthorized().body("Not logged in!")
+    }
+}
+
 #[actix_web::main]
 async fn main() -> Result<()> {
     env_logger::init_from_env(env_logger::Env::new().default_filter_or("warn"));
@@ -167,6 +187,7 @@ async fn main() -> Result<()> {
             .service(version)
             .service(add_link)
             .service(delete_link)
+            .service(edit_link)
             .service(login)
             .service(Files::new("/", "./resources/").index_file("index.html"))
             .default_service(web::get().to(error404))

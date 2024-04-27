@@ -93,12 +93,14 @@ const TR = (row, site) => {
     let hitsTD = TD(row["hits"]);
     hitsTD.setAttribute("label", "Hits");
     hitsTD.setAttribute("name", "hitsColumn");
-    const btn = deleteButton(row["shortlink"]);
+    const delBtn = deleteButton(row["shortlink"]);
+    const editBtn = editButton(row["shortlink"]);
 
     tr.appendChild(shortTD);
     tr.appendChild(longTD);
     tr.appendChild(hitsTD);
-    tr.appendChild(btn);
+    tr.appendChild(editBtn);
+    tr.appendChild(delBtn);
 
     return tr;
 }
@@ -154,6 +156,68 @@ const deleteButton = (shortUrl) => {
     };
     td.setAttribute("name", "deleteBtn");
     td.setAttribute("label", "Delete");
+    td.setAttribute("class", "table-button");
+    div.appendChild(btn);
+    td.appendChild(div);
+    return td;
+}
+
+const editButton = (shortUrl) => {
+    const td = document.createElement("td");
+    const div = document.createElement("div");
+    const btn = document.createElement("button");
+
+    const editDialog = document.getElementById("edit-dialog");
+    const editDialogCloseBtn = document.getElementById("edit-dialog-close")
+
+    btn.innerHTML = "&#9998;";
+
+    btn.onclick = e => {
+        e.preventDefault();
+        editDialog.showModal();
+
+        editDialogCloseBtn.onclick = ce => {
+            ce.preventDefault();
+            editDialog.close();
+        };
+
+        editDialog.onsubmit = de => {
+            de.preventDefault();
+            longUrl = document.getElementById("editedLongUrl").value;
+
+            if (longUrl === "") {
+                editDialog.close();
+                return false;
+            }
+
+            const data = {
+                "longlink": longUrl
+            };
+
+            fetch(prepSubdir(`/api/edit/${shortUrl}`), {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(data)
+            }).then(res => {
+                if (res.ok) {
+                    console.log("Edited " + shortUrl);
+                    copyShortUrl(shortUrl);
+                    document.getElementById("editedLongUrl").value = "";
+                } else {
+                    console.log("Unable to edit " + shortUrl);
+                    showAlert("Unable to edit URL " + shortUrl, "red");
+                }
+                refreshData();
+                editDialog.close();
+            });
+        };
+    };
+
+    td.setAttribute("name", "editBtn");
+    td.setAttribute("label", "Edit");
+    td.setAttribute("class", "table-button");
     div.appendChild(btn);
     td.appendChild(div);
     return td;
@@ -235,4 +299,6 @@ const submitLogin = () => {
         e.preventDefault();
         submitLogin();
     }
+
+
 })()

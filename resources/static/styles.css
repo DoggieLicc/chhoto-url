@@ -31,17 +31,17 @@ td[name="hitsColumn"] {
     text-align: right;
 }
 
-td[name="deleteBtn"] div {
+td.table-button div {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-td[name="deleteBtn"] {
+td.table-button, .text-icon {
     text-align: center;
 }
 
-td[name="deleteBtn"] div button {
+td.table-button div button {
     border-radius: 100%;
     aspect-ratio: 1;
     border-style: solid;
@@ -86,13 +86,22 @@ div[name="github-link"] {
     font-size: 32px;
 }
 
-#password {
+#password, #editedLongUrl {
     width: 100%;
     margin-bottom: 10px;
 }
 
 dialog form {
     text-align: center;
+}
+
+
+.close-button {
+    background-color: #f51d1d;
+}
+
+#edit-dialog::backdrop {
+  backdrop-filter: blur(2px);
 }
 
 /* Settings for mobile devices */

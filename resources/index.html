@@ -56,7 +56,8 @@
                     <td id="short-url-header">Short URL (click to copy)</td>
                     <td>Long URL</td>
                     <td name="hitsColumn">Hits</td>
-                    <td name="deleteBtn">&times;</td>
+                    <td class="text-icon" name="editBtn">&#9998;</td>
+                    <td class="text-icon" name="deleteBtn">&times;</td>
                 </tr>
             </thead>
             <tbody id="url-table">
@@ -77,6 +78,17 @@
             <input type="password" id="password" />
             <button class="pure-button pure-button-primary" value="default">Log in</button>
             <p id="wrong-pass">&nbsp;</p>
+        </form>
+    </dialog>
+
+
+    <dialog id="edit-dialog">
+        <form class="pure-form" name="edit-form" method="dialog">
+            <p>Enter new long URL</p>
+            <input type="url" name="longUrl" id="editedLongUrl" placeholder="Please enter a valid URL"  onblur="addProtocol(this)" required />
+            <button class="pure-button pure-button-primary" value="default" submit>Edit URL</button>
+            <br><br>
+            <button class="pure-button pure-button-primary close-button" id="edit-dialog-close" value="close" formnovalidate>Close</button>
         </form>
     </dialog>
 
