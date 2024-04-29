@@ -24,7 +24,7 @@ COPY ./actix/src ./src
 RUN cargo build --release --target=$target --locked --bin chhoto-url
 
 FROM scratch
-ARG target=x86_64-unknown-linux-musl
+
 COPY --from=builder /chhoto-url/target/$target/release/chhoto-url /chhoto-url
 COPY ./resources /resources
 ENTRYPOINT ["/chhoto-url"]
