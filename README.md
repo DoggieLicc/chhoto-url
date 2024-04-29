@@ -1,13 +1,11 @@
 <!-- SPDX-FileCopyrightText: 2023 Sayantan Santra <sayantan.santra689@gmail.com> -->
 <!-- SPDX-License-Identifier: MIT -->
 
-[![docker-pulls-badge](https://img.shields.io/docker/pulls/sintan1729/chhoto-url)](https://hub.docker.com/r/sintan1729/chhoto-url)
-[![maintainer-badge](https://img.shields.io/badge/maintainer-SinTan1729-blue)](https://github.com/SinTan1729)
-[![latest-release-badge](https://img.shields.io/github/v/release/SinTan1729/chhoto-url?label=latest%20release)](https://github.com/SinTan1729/chhoto-url/releases/latest)
-![commit-since-latest-release-badge](https://img.shields.io/github/commits-since/SinTan1729/chhoto-url/latest?sort=semver&label=commits%20since%20latest%20release)
 [![license-badge](https://img.shields.io/github/license/SinTan1729/chhoto-url)](https://spdx.org/licenses/MIT.html)
 
 # ![Logo](resources/assets/favicon-32.png) <span style="font-size:42px">Chhoto URL</span>
+
+# Fork of [chhoto-url](https://github.com/SinTan1729/chhoto-url)
 
 # What is it?
 A simple selfhosted URL shortener with no unnecessary features. Simplicity
@@ -154,6 +152,12 @@ curl http://localhost:4567/api/all
 To delete a link, do
 ```bash
 curl -X DELETE http://localhost:4567/api/del/<shortlink>
+```
+The server will send a confirmation.
+
+To edit an existing link, do
+```bash
+curl -X POST -d '{"longlink":"<new_longlink>"}' http://localhost:4567/api/edit/<shortlink>
 ```
 The server will send a confirmation.
 
