@@ -44,7 +44,7 @@ const displayData = async (data) => {
     let version = await getVersion();
     link = document.getElementById("version-number")
     link.innerText = "v" + version;
-    link.href = "https://github.com/SinTan1729/chhoto-url/releases/tag/" + version;
+    link.href = "https://github.com/DoggieLicc/chhoto-url/releases/tag/" + version;
     link.hidden = false;
 
     let site = await getSiteUrl();
