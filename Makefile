@@ -40,6 +40,13 @@ docker-release: build-release
 		--tag ${DOCKER_USERNAME}/chhoto-url:${V_PATCH} --tag ${DOCKER_USERNAME}/chhoto-url:latest \
 		--platform linux/amd64,linux/arm64,linux/arm/v7 -f Dockerfile.multiarch .
 
+github-release: build-release
+	tar cvf releases/aarch64-unknown-linux-musl.tar actix/target/aarch64-unknown-linux-musl/release/chhoto-url resources/ dotenv-example
+	tar cvf releases/armv7-unknown-linux-musleabihf.tar actix/target/armv7-unknown-linux-musleabihf/release/chhoto-url resources/ dotenv-example
+	tar cvf releases/x86_64-unknown-linux-musl.tar actix/target/x86_64-unknown-linux-musl/release/chhoto-url resources/ dotenv-example
+
+	gh release create ${V_PATCH} -d releases/aarch64-unknown-linux-musl.tar releases/armv7-unknown-linux-musleabihf.tar releases/x86_64-unknown-linux-musl.tar 
+
 clean:
 	docker ps -q --filter "name=chhoto-url" | xargs -r docker stop
 	docker ps -aq --filter "name=chhoto-url" | xargs -r docker rm
