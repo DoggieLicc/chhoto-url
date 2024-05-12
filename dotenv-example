@@ -1,0 +1,6 @@
+password="securepassword"
+port=4567
+db_url=./urls.sqlite
+redirect_method=TEMPORARY
+site_url=https://www.example.com
+
