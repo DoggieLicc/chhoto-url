@@ -29,7 +29,7 @@ included java runtime). So, I decided to rewrite it in Rust and add some feature
 thought were essential (e.g. hit counting).
 
 ## What does the name mean?
-Chhoto (ছোট, [IPA](https://en.wikipedia.org/wiki/Help:IPA/Bengali): /tʃʰoʈo/) is the Bangla word
+Chhoto (ছট, [IPA](https://en.wikipedia.org/wiki/Help:IPA/Bengali): /tʃʰoʈo/) is the Bangla word
 for small. URL means, well... URL. So the name simply means Small URL.
 
 # Features
@@ -125,6 +125,21 @@ the `redirect_method` variable to `TEMPORARY` or `PERMANENT` (it's matched exact
 default, the auto-generated links are adjective-name pairs. You can use UIDs by setting
 the `slug_style` variable to `UID`. You can also set the length of those slug by setting
 the `slug_length` variable. It defaults to 8, and a minimum of 4 is supported.
+
+## Running dockerless
+### From release
+1. Download the latest release from [releases](https://github.com/DoggieLicc/chhoto-url/releases) for your arch
+2. Extract the files into a folder of your choice and `cd` into it
+```
+mkdir chhoto-url
+tar xvf x86_64-unknown-linux-musl.tar -C chhoto-url
+cd chhoto-url/
+```
+3. Create a `.env` file with the editor of your choice and set your environment variables. Check the `dotenv-example` for an example (optional)
+4. Run the executable and enjoy.
+```
+./chhoto-url
+```
 
 ## Instructions for CLI usage
 The application can be used from the terminal using something like `curl`. In all the examples
