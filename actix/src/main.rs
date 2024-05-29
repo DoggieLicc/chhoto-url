@@ -61,7 +61,10 @@ async fn getall(data: web::Data<AppState>, session: Session) -> HttpResponse {
 // Get the site URL
 #[get("/api/siteurl")]
 async fn siteurl() -> HttpResponse {
-    let site_url = env::var("site_url").unwrap_or(String::from("unset"));
+    let site_url = env::var("site_url")
+        .ok()
+        .filter(|s| !s.trim().is_empty())
+        .unwrap_or(String::from("unset"));
     HttpResponse::Ok().body(site_url)
 }
 
@@ -173,7 +176,11 @@ async fn main() -> Result<()> {
 
     // Generate session key in runtime so that restart invalidates older logins
     let secret_key = Key::generate();
-    let db_location = env::var("db_url").unwrap_or(String::from("/urls.sqlite"));
+    let db_location = env::var("db_url")
+        .ok()
+        .filter(|s| !s.trim().is_empty())
+        .unwrap_or(String::from("unset"));
+
     let port = env::var("port")
         .unwrap_or(String::from("4567"))
         .parse::<u16>()
@@ -192,7 +199,7 @@ async fn main() -> Result<()> {
             )
             // Maintain a single instance of database throughout
             .app_data(web::Data::new(AppState {
-                db: database::open_db(env::var("db_url").unwrap_or(db_location.clone())),
+                db: database::open_db(db_location.clone()),
             }))
             .service(link_handler)
             .service(getall)
