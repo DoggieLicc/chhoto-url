@@ -31,7 +31,7 @@ const VERSION: &str = env!("CARGO_PKG_VERSION");
 // Add new links
 #[post("/api/new")]
 async fn add_link(req: String, data: web::Data<AppState>, session: Session) -> HttpResponse {
-    if auth::validate(session) {
+    if env::var("public_mode") == Ok(String::from("Enable")) || auth::validate(session) {
         let out = utils::add_link(req, &data.db);
         if out.0 {
             HttpResponse::Created().body(out.1)
@@ -49,19 +49,20 @@ async fn getall(data: web::Data<AppState>, session: Session) -> HttpResponse {
     if auth::validate(session) {
         HttpResponse::Ok().body(utils::getall(&data.db))
     } else {
-        HttpResponse::Unauthorized().body("Not logged in!")
+        let body = if env::var("public_mode") == Ok(String::from("Enable")) {
+            "Using public mode."
+        } else {
+            "Not logged in!"
+        };
+        HttpResponse::Unauthorized().body(body)
     }
 }
 
 // Get the site URL
 #[get("/api/siteurl")]
-async fn siteurl(session: Session) -> HttpResponse {
-    if auth::validate(session) {
-        let site_url = env::var("site_url").unwrap_or(String::from("unset"));
-        HttpResponse::Ok().body(site_url)
-    } else {
-        HttpResponse::Unauthorized().body("Not logged in!")
-    }
+async fn siteurl() -> HttpResponse {
+    let site_url = env::var("site_url").unwrap_or(String::from("unset"));
+    HttpResponse::Ok().body(site_url)
 }
 
 // Get the version number
@@ -115,6 +116,16 @@ async fn login(req: String, session: Session) -> HttpResponse {
         .insert("chhoto-url-auth", auth::gen_token())
         .expect("Error inserting auth token.");
     HttpResponse::Ok().body("Correct password!")
+}
+
+// Handle logout
+#[delete("/api/logout")]
+async fn logout(session: Session) -> HttpResponse {
+    if session.remove("chhoto-url-auth").is_some() {
+        HttpResponse::Ok().body("Logged out!")
+    } else {
+        HttpResponse::Unauthorized().body("You don't seem to be logged in.")
+    }
 }
 
 // Delete a given shortlink
@@ -191,6 +202,7 @@ async fn main() -> Result<()> {
             .service(delete_link)
             .service(edit_link)
             .service(login)
+            .service(logout)
             .service(Files::new("/", "./resources/").index_file("index.html"))
             .default_service(web::get().to(error404))
     })

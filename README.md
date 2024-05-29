@@ -43,6 +43,8 @@ for small. URL means, well... URL. So the name simply means Small URL.
 - Counts number of hits for each short link in a privacy respecting way
   i.e. only the hit is recorded, and nothing else.
 - Has a mobile friendly UI.
+- Has a public mode, where anyone can add links without authentication. Deleting 
+  or listing available links will need admin access using the password.
 - Allows setting the URL of your website, in case you want to conveniently
   generate short links locally.
 - Links are stored in an SQLite database.
@@ -126,6 +128,7 @@ default, the auto-generated links are adjective-name pairs. You can use UIDs by 
 the `slug_style` variable to `UID`. You can also set the length of those slug by setting
 the `slug_length` variable. It defaults to 8, and a minimum of 4 is supported.
 
+<<<<<<< HEAD
 ## Running dockerless
 ### From release
 1. Download the latest release from [releases](https://github.com/DoggieLicc/chhoto-url/releases) for your arch
@@ -140,6 +143,10 @@ cd chhoto-url/
 ```
 ./chhoto-url
 ```
+=======
+To enable public mode, set `public_mode` to `Enable`. With this, anyone will be able to add 
+links. Listing existing links or deleting links will need admin access using the password.
+>>>>>>> 6cdacda510bdb61eccf13e4f2544d449208f7be1
 
 ## Instructions for CLI usage
 The application can be used from the terminal using something like `curl`. In all the examples
