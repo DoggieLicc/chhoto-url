@@ -9,6 +9,7 @@ setup:
 	rustup target add x86_64-unknown-linux-musl
 	docker buildx create --use --platform=linux/arm64,linux/amd64 --name multi-platform-builder
 	docker buildx inspect --bootstrap
+	mkdir releases
 
 build-dev:
 	cargo build --release --locked --manifest-path=actix/Cargo.toml --target x86_64-unknown-linux-musl
@@ -43,7 +44,7 @@ docker-release: build-release
 		--platform linux/amd64,linux/arm64,linux/arm/v7 -f Dockerfile.multiarch .
 
 github-release: build-release
-	cp -r resources/ releases/resources/
+	cp -r resources/ releases/resources
 	cp dotenv-example releases/dotenv-example
 
 	cp actix/target/aarch64-unknown-linux-musl/release/chhoto-url releases/chhoto-url
