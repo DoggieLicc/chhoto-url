@@ -68,8 +68,11 @@ not needed here.
 - Paywalls or messages begging for donations. If you want to support me (for
 whatever reason), you can message me through GitHub issues.
 
-# Screenshot
-![Screenshot](screenshot.png)
+# Screenshots
+<p align="middle">
+  <img src="screenshot-desktop.webp" height="250" alt="desktop screenshot" />
+  <img src="screenshot-mobile.webp" height="250" alt="mobile screenshot" />
+</p>
 
 # Usage
 ## Using `docker compose` (Recommended method)
@@ -128,7 +131,6 @@ default, the auto-generated links are adjective-name pairs. You can use UIDs by 
 the `slug_style` variable to `UID`. You can also set the length of those slug by setting
 the `slug_length` variable. It defaults to 8, and a minimum of 4 is supported.
 
-<<<<<<< HEAD
 ## Running dockerless
 ### From release
 1. Download the latest release from [releases](https://github.com/DoggieLicc/chhoto-url/releases) for your arch
@@ -143,10 +145,8 @@ cd chhoto-url/
 ```
 ./chhoto-url
 ```
-=======
 To enable public mode, set `public_mode` to `Enable`. With this, anyone will be able to add 
 links. Listing existing links or deleting links will need admin access using the password.
->>>>>>> 6cdacda510bdb61eccf13e4f2544d449208f7be1
 
 By default, the server sends no Cache-Control headers. You can set custom `cache_control_header` 
 to send your desired headers. It must be a comma separated list of valid 
