@@ -3,7 +3,7 @@
 
 @font-face {
     font-family: Montserrat;
-    src: url('Montserrat-VF.woff2');
+    src: url('/assets/Montserrat-VF.woff2');
 }
 
 * {
@@ -55,10 +55,6 @@ td.table-button div button {
 
 input {
     width: 65%;
-}
-
-form input[name="shortUrl"] {
-    text-transform: lowercase;
 }
 
 form input[name="shortUrl"]::placeholder {
