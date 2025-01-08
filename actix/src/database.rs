@@ -104,5 +104,6 @@ pub fn open_db(path: String) -> Connection {
         [],
     )
     .expect("Unable to initialize empty database.");
+
     db
 }
