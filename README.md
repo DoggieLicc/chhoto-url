@@ -221,6 +221,12 @@ curl -X POST -H "X-API-Key: <YOUR_API_KEY>" -d '{"shortlink":"<shortlink>", "lon
 ```
 Send an empty `<shortlink>` if you want it to be auto-generated. The server will reply with the generated shortlink.
 
+To get information about a single shortlink:
+``` bash
+curl -H "X-API-Key: <YOUR_API_KEY>" -d '<shortlink>' http://localhost:4567/api/expand
+```
+(This route is not accessible using cookie validation.)
+
 To get a list of all the currently available links:
 ``` bash
 curl -H "X-API-Key: <YOUR_API_KEY>" http://localhost:4567/api/all
@@ -239,7 +245,6 @@ curl -X POST -H "X-API-Key: <YOUR_API_KEY>" -d '{"longlink":"<new_longlink>"}' h
 ```
 
 The server will output when the instance is accessed over API, when an incorrect API key is received, etc.
-
 
 ## Disable authentication
 If you do not define a password environment variable when starting the docker image, authentication
