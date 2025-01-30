@@ -53,7 +53,7 @@ for small. URL means, well... URL. So the name simply means Small URL.
   written in plain HTML and vanilla JS, using [Pure CSS](https://purecss.io/)
   for styling.
 - Uses very basic authentication using a provided password. It's not encrypted in transport.
-  I  recommend using something like [caddy](https://caddyserver.com/) to
+  I  recommend using a reverse proxy such as [caddy](https://caddyserver.com/) to
   encrypt the connection by SSL.
   
 # Bloat that will not be implemented
@@ -257,7 +257,7 @@ that those links aren't created by you.
 
 ## Notes
 - It started as a fork of [`simply-shorten`](https://gitlab.com/draganczukp/simply-shorten).
-- There's an (unofficial) extension maintained by [SolninjaA](https://github.com/SolninjaA) for shortening URLs easily using Chhoto URL.
-  [You can take a look at it here.](https://addons.mozilla.org/en-US/firefox/addon/chhoto-url)
+- There's an (unofficial) extension maintained by for shortening URLs easily using Chhoto URL.
+  [You can take a look at it here.](https://github.com/SolninjaA/Chhoto-URL-Extension)
 - The list of adjectives and names used for random short url generation is a modified
   version of [this list used by docker](https://github.com/moby/moby/blob/master/pkg/namesgenerator/names-generator.go).
